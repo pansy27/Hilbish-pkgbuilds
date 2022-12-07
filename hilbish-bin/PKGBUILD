@@ -1,0 +1,25 @@
+# Maintainer: Pansy27 <uselessshogun99 at gmail dot com>
+
+pkgname='hilbish'
+pkgver='2.0.0_rc1'
+pkgrel='1'
+pkgdesc="A comfy and nice little shell for Lua fans!"
+depends=('glibc')
+arch=('x86_64')
+url="https://github.com/rosettea/hilbish"
+license=('MIT')
+provides=("$pkgname")
+conflicts=("$pkgname" "$pkgname-git")
+options=('!emptydirs') 
+# changelog='CHANGELOG.md'
+install='hilbish.install'
+source_x86_64=("$pkgname-v${pkgver//_/-}.tar.gz::$url/releases/download/v${pkgver//_/-}/$pkgname-v${pkgver//_/-}-linux-amd64.tar.gz")
+md5sums_x86_64=('6572a32ca63801cdbaabf5fcffa48e79')
+validpgpkeys=('784DF7A13b68C5094E16839C904FC49417B44DCD')
+package() {
+	# cd "$pkgname-v${pkgver//_/-}"
+	install -Dm 0755 -v ./hilbish "$pkgdir/usr/bin/hilbish"
+	mkdir -p "$pkgdir/usr/share/hilbish"
+	cp -r docs emmyLuaDocs libs nature .hilbishrc.lua "$pkgdir/usr/share/hilbish"
+	install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

@@ -1,0 +1,47 @@
+# Maintainer: Pansy27 <uselessshogun99 at gmail dot com>
+
+pkgname='hilbish'
+pkgver='1.2.0'
+pkgrel='1'
+pkgdesc="A comfy and nice little shell for Lua fans!"
+arch=('x86_64')
+url="https://github.com/rosettea/hilbish"
+license=('MIT')
+makedepends=('git' 'go')
+provides=("$pkgname")
+conflicts=("$pkgname" "$pkgname-git")
+options=('!emptydirs')
+install='hilbish.install'
+source=("$pkgname::git+https://github.com/Rosettea/hilbish.git#commit=6ffcc49"
+		"git+https://github.com/Rosettea/Lunacolors.git#commit=8467b87"
+		"git+https://github.com/Rosettea/Succulent.git#commit=96dc95c"
+		"git+https://github.com/kikito/inspect.lua.git#commit=b611db6"
+		)
+md5sums=('SKIP'
+				'SKIP'
+				'SKIP'
+				'SKIP'
+)
+
+prepare() {
+	cd "$srcdir/$pkgname"
+	git submodule init
+	git config submodule.externals/vendor/https://github.com/Rosettea/Lunacolors.git "$srcdir/Lunacolors"
+	git config submodule.externals/vendor/https://github.com/Rosettea/Succulent.git "$srcdir/Succulent"
+	git config submodule.externals/vendor/https://github.com/kikito/inspect.lua.git "$srcdir/inspect.lua"
+  git -c protocol.file.allow=always submodule update 
+}
+
+build() { 
+	cd "$srcdir/$pkgname"
+	go get -d ./...
+	CGO_ENABLED=0 go build -ldflags "-s -w"
+}
+
+package() { 
+	cd "$srcdir/$pkgname"
+	install -Dm 0755 -v ./hilbish "$pkgdir/usr/bin/hilbish"
+	mkdir -p "$pkgdir/usr/share/hilbish"
+	cp -r docs emmyLuaDocs libs nature .hilbishrc.lua "$pkgdir/usr/share/hilbish"
+	install -Dm 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
