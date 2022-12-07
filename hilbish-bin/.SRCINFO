@@ -11,7 +11,7 @@ pkgbase = hilbish
 	conflicts = hilbish
 	conflicts = hilbish-git
 	options = !emptydirs
-	validpgpkeys = 784DF7A13b68C5094E16839C904FC49417B44DCD
+	validpgpkeys = 784DF7A14968C5094E16839C904FC49417B44DCD
 	source_x86_64 = hilbish-v2.0.0-rc1.tar.gz::https://github.com/rosettea/hilbish/releases/download/v2.0.0-rc1/hilbish-v2.0.0-rc1-linux-amd64.tar.gz
 	md5sums_x86_64 = 6572a32ca63801cdbaabf5fcffa48e79
 

@@ -16,6 +16,7 @@ pkgbase = hilbish-git
 	source = git+https://github.com/Rosettea/Lunacolors.git
 	source = git+https://github.com/Rosettea/Succulent.git
 	source = git+https://github.com/kikito/inspect.lua.git
+	validpgpkeys = 784DF7A14968C5094E16839C904FC49417B44DCD
 	md5sums = SKIP
 	md5sums = SKIP
 	md5sums = SKIP
